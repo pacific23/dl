@@ -1170,7 +1170,7 @@ class App extends React.Component {
     if (whichgame == 1) emoticon = "🧟‍️";
     this.state.textToCopy +=
       emoticon +
-      " defiLogic.bankiiiz.com #" +
+      " https://defiLogic.bankiiiz.com #" +
       idDefi +
       " " +
       emoticon +
@@ -1193,7 +1193,7 @@ class App extends React.Component {
         <tr class="help" align="center">
           <td>
             <h3>
-              {emoticon + "defilogic.bankiiiz.com #" + idDefi + emoticon}
+              {emoticon + "https://defilogic.bankiiiz.com #" + idDefi + emoticon}
               <br />
               {trophy}
               <br />
