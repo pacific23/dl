@@ -1,0 +1,49 @@
+.App {
+  font-family: "Tahoma";
+  text-align: center;
+}
+.form-control {
+  background: #ffffff;
+  border: 1px solid #d2d6db;
+  border-radius: 6px;
+  padding: 8px;
+  height: 20px;
+  min-width: 20px;
+}
+.submit-btn {
+  padding: 16px 24px;
+  font-weight: 500;
+  color: #ffff;
+  border: 1px solid #d2d6db;
+  background-color: #5850eb;
+  border-radius: 6px;
+  cursor: pointer;
+}
+table.main {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+  width: 100%;
+  border-collapse: collapse;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+tr {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+table.hotel {
+  border-collapse: collapse;
+}
+tr.top {
+  background-color: rgb(255, 255, 255);
+}
+td.top {
+  padding: 0;
+}
+td.card {
+  padding: 0;
+}
+tr.help {
+  background-color: rgba(255, 255, 255, 0.5);
+}
