@@ -336,7 +336,7 @@ class App extends React.Component {
       this.state.targetLine = event.dropData.idLine;
       if (this.state.targetLine === -1) {
         // On lâche l'oiseau sur la ligne du haut
-        this.state.historicalMoves.push(1); // Neutral move
+        //        this.state.historicalMoves.push(1); // Neutral move
         this.state.birds[this.state.draggedBird] = 1;
         document.getElementById(
           "bird" + this.state.draggedBird
@@ -1185,7 +1185,7 @@ class App extends React.Component {
       " tentative(s) : " +
       essais +
       "\n\r" +
-      this.state.nbMoves +
+      this.state.historicalMoves.length +
       " mouvements : " +
       line;
     return (
@@ -1201,7 +1201,7 @@ class App extends React.Component {
               <br />
               {this.state.nbTry + " tentative(s) : " + essais}
               <br />
-              {this.state.nbMoves + " mouvements : " + line}
+              {this.state.historicalMoves.length + " mouvements : " + line}
               <br />
               <CopyToClipboard
                 text={this.state.textToCopy}
