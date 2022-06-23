@@ -71,7 +71,7 @@ var background = backgroundBirds;
 var logoTodayGame = logoBirds;
 var todayGame = birds;
 var helpSentence =
-  "Replacez les oiseaux au bon endroit !<br />Voici un apperçu des règles de placement des oiseaux :";
+  "Replacez les oiseaux au bon endroit !<br />Voici un aperçu des règles de placement des oiseaux :";
 var buttonValid = buttonValidBirds;
 //var timeout;
 //var delay = 120000;
@@ -212,7 +212,7 @@ class App extends React.Component {
           logoTodayGame = logoBirds;
           todayGame = birds;
           helpSentence =
-            "Replacez les oiseaux au bon endroit ! Voici un apperçu des règles de placement des oiseaux :";
+            "Replacez les oiseaux au bon endroit ! Voici un aperçu des règles de placement des oiseaux :";
           buttonValid = buttonValidBirds;
           this.state.actualButton = buttonValid;
         }
@@ -221,7 +221,7 @@ class App extends React.Component {
           logoTodayGame = logoHotel;
           todayGame = hotel;
           helpSentence =
-            "Replacez vos amis les monstres au bon endroit ! Voici un apperçu des règles de placement des monstres :";
+            "Replacez vos amis les monstres au bon endroit ! Voici un aperçu des règles de placement des monstres :";
           buttonValid = buttonValidHotel;
           this.state.actualButton = buttonValid;
         }
@@ -250,7 +250,7 @@ class App extends React.Component {
           logoTodayGame = logoBirds;
           todayGame = birds;
           helpSentence =
-            "Replacez les oiseaux au bon endroit ! Voici un apperçu des règles de placement des oiseaux :";
+            "Replacez les oiseaux au bon endroit ! Voici un aperçu des règles de placement des oiseaux :";
           buttonValid = buttonValidBirds;
           this.state.actualButton = buttonValid;
         }
@@ -259,7 +259,7 @@ class App extends React.Component {
           logoTodayGame = logoHotel;
           todayGame = hotel;
           helpSentence =
-            "Replacez vos amis les monstres au bon endroit ! Voici un apperçu des règles de placement des monstres :";
+            "Replacez vos amis les monstres au bon endroit ! Voici un aperçu des règles de placement des monstres :";
           buttonValid = buttonValidHotel;
           this.state.actualButton = buttonValid;
         }
@@ -862,7 +862,7 @@ class App extends React.Component {
       <tr>
         <td colspan="3" class="card" align="center" valign="top" width="100%">
           <h4>
-            Le chrono se met en marche dès que vou lancez le jeu.
+            Le chrono se met en marche dès que vous lancez le jeu.
             <br />
             Serez-vous le plus rapide ?
           </h4>
