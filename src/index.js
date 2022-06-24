@@ -15,6 +15,7 @@ import logoBirds from "./images/LogoBirds.png";
 import logoHotel from "./images/LogoHotel.png";
 import miniGamme from "./images/MiniGamme.png";
 import buttonStart from "./images/ButtonStart.png";
+import buttonStartAgain from "./images/ButtonStartAgain.png";
 import buttonBuy from "./images/ButtonBuy.png";
 import rule1 from "./images/Rule1.png";
 import rule2 from "./images/Rule2.png";
@@ -67,6 +68,8 @@ var idDefi = 0;
 var whichgame = 0; // 0 : Birds / 1 : Hotel / 2 : Jungle
 var lvl = "";
 var solution = "";
+var nbHist = 0;
+var moyHist = 0;
 var background = backgroundBirds;
 var logoTodayGame = logoBirds;
 var todayGame = birds;
@@ -85,6 +88,8 @@ class App extends React.Component {
     gameState: 0, // 0 : loading / 1 : game / 2 : endoflevel / -4 : Délai expiré
     pauseGame: 1,
     helpState: 1,
+    alreadyPlayed: false,
+    showStats: 0,
     buttonValid: 0,
     nbMoves: 0,
     nbTry: 0,
@@ -117,7 +122,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    document.title = "defilogic";
+    document.title = "Defilogic";
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
     userID = cookies.get("user");
@@ -263,12 +268,17 @@ class App extends React.Component {
           buttonValid = buttonValidHotel;
           this.state.actualButton = buttonValid;
         }
+        nbHist = jsonResponse["nb"];
+        moyHist = jsonResponse["moy"];
+        this.setState({ alreadyPlayed: jsonResponse["played"] == "yes" });
       }
       this.resize();
     });
     xhr.open(
       "GET",
-      "https://www.pcspace.com/logicbird/getDayChallenge.php?ask=1"
+      "https://www.pcspace.com/logicbird/getDayChallenge.php?uuid=" +
+        userID +
+        "&ask=1"
     );
     xhr.send();
   }
@@ -278,6 +288,7 @@ class App extends React.Component {
 
     xhr.addEventListener("load", () => {
       var data = xhr.responseText;
+      this.getPredata();
     });
     xhr.open(
       "GET",
@@ -570,7 +581,7 @@ class App extends React.Component {
         scoreFinal = scoreFinal - this.state.nbMoves;
         scoreFinal = scoreFinal - (this.state.nbTry - 1);
         scoreFinal = Math.round(scoreFinal * 100) / 100;
-        this.setState({ gameState: 2 });
+        this.setState({ alreadyPlayed: false, gameState: 2 });
         this.setData();
         /*      alert(
           "Coups : " +
@@ -616,7 +627,7 @@ class App extends React.Component {
         scoreFinal = scoreFinal - this.state.nbMoves;
         scoreFinal = scoreFinal - (this.state.nbTry - 1);
         scoreFinal = Math.round(scoreFinal * 100) / 100;
-        this.setState({ gameState: 2 });
+        this.setState({ alreadyPlayed: false, gameState: 2 });
         this.setData();
       } else {
         this.state.actualButton = buttonFaux;
@@ -646,6 +657,9 @@ class App extends React.Component {
               {(this.state.gameState > 0) & (this.state.pauseGame != 1) ? (
                 <div>
                   {this.state.gameState == 2 ? this.renderShare() : null}
+                  {(this.state.gameState == 2) & this.state.alreadyPlayed
+                    ? this.renderStats()
+                    : null}
                   {whichgame == 0 ? (
                     <div>
                       <div>
@@ -851,7 +865,9 @@ class App extends React.Component {
     return (
       <tr class="help">
         <td colspan="3" class="card" align="center" valign="top" width="100%">
-          {this.state.gameState == 0 ? this.renderHelp() : null}
+          {(this.state.gameState == 0) & !this.state.alreadyPlayed
+            ? this.renderHelp()
+            : null}
         </td>
       </tr>
     );
@@ -860,21 +876,65 @@ class App extends React.Component {
   renderUnderStartScreen() {
     return (
       <tr>
-        <td colspan="3" class="card" align="center" valign="top" width="100%">
-          <h4>
-            Le chrono se met en marche dès que vous lancez le jeu.
+        {!this.state.alreadyPlayed ? (
+          <td colspan="3" class="card" align="center" valign="top" width="100%">
+            <h4>
+              Le chrono se met en marche dès que vous lancez le jeu.
+              <br />
+              Serez-vous le plus rapide ?
+            </h4>
+            <input
+              type="image"
+              src={buttonStart}
+              onClick={this.clickHelp}
+              width="250px"
+              height="52px"
+            />
+          </td>
+        ) : (
+          <td colspan="3" class="card" align="center" valign="top" width="100%">
+            <h4>
+              Vous avez déjà joué aujourd'hui.
+              <br />
+              Voulez-vous rejouer ?
+            </h4>
+            {this.renderStats()}
             <br />
-            Serez-vous le plus rapide ?
-          </h4>
-          <input
-            type="image"
-            src={buttonStart}
-            onClick={this.clickHelp}
-            width="250px"
-            height="52px"
-          />
-        </td>
+            <input
+              type="image"
+              src={buttonStartAgain}
+              onClick={() => {
+                this.setState({ alreadyPlayed: false });
+              }}
+              width="250px"
+              height="52px"
+            />
+          </td>
+        )}
       </tr>
+    );
+  }
+
+  renderStats() {
+    return (
+      <table align="center">
+        <tr class="help" align="center">
+          <td>
+            <h4>Cumul défis joués</h4>
+          </td>
+          <td>
+            <h4>{nbHist}</h4>
+          </td>
+        </tr>
+        <tr class="help" align="center">
+          <td>
+            <h4>Temps moyen</h4>
+          </td>
+          <td>
+            <h4>{moyHist}s</h4>
+          </td>
+        </tr>
+      </table>
     );
   }
 
@@ -1193,7 +1253,10 @@ class App extends React.Component {
         <tr class="help" align="center">
           <td>
             <h3>
-              {emoticon + "https://defilogic.bankiiiz.com #" + idDefi + emoticon}
+              {emoticon +
+                "https://defilogic.bankiiiz.com #" +
+                idDefi +
+                emoticon}
               <br />
               {trophy}
               <br />
