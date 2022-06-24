@@ -70,6 +70,7 @@ var lvl = "";
 var solution = "";
 var nbHist = 0;
 var moyHist = 0;
+var streakHist = 0;
 var background = backgroundBirds;
 var logoTodayGame = logoBirds;
 var todayGame = birds;
@@ -270,6 +271,7 @@ class App extends React.Component {
         }
         nbHist = jsonResponse["nb"];
         moyHist = jsonResponse["moy"];
+        streakHist = jsonResponse["streak"];
         this.setState({ alreadyPlayed: jsonResponse["played"] == "yes" });
       }
       this.resize();
@@ -920,7 +922,7 @@ class App extends React.Component {
       <table align="center">
         <tr class="help" align="center">
           <td>
-            <h4>Cumul défis joués</h4>
+            <h4>Total défis joués</h4>
           </td>
           <td>
             <h4>{nbHist}</h4>
@@ -932,6 +934,14 @@ class App extends React.Component {
           </td>
           <td>
             <h4>{moyHist}s</h4>
+          </td>
+        </tr>
+        <tr class="help" align="center">
+          <td>
+            <h4>Série en cours</h4>
+          </td>
+          <td>
+            <h4>{streakHist}</h4>
           </td>
         </tr>
       </table>
@@ -1219,8 +1229,8 @@ class App extends React.Component {
     var trophy = "";
     for (var i = 0; i < this.state.historicalMoves.length; i++) {
       if (this.state.historicalMoves[i] == 0) line += "🟢";
-      if (this.state.historicalMoves[i] == 1) line += "🔵";
-      if (this.state.historicalMoves[i] == 2) line += "🔴";
+      if (this.state.historicalMoves[i] == 1) line += "🔴";
+      if (this.state.historicalMoves[i] == 2) line += "🔵";
     }
     for (var i = 1; i < this.state.nbTry; i++) essais += "❌";
     essais += "✅";
