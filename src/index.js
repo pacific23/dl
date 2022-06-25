@@ -1238,7 +1238,7 @@ class App extends React.Component {
     else trophy = "🏆🏆 🏆🏆";
     var emoticon = "🐦";
     if (whichgame == 1) emoticon = "🧟‍️";
-    this.state.textToCopy +=
+    this.state.textToCopy =
       emoticon +
       " https://defiLogic.bankiiiz.com #" +
       idDefi +
