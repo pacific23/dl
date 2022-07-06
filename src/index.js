@@ -60,6 +60,7 @@ import buttonValidBirds from "./images/ButtonValidBirds.png";
 import buttonValidHotel from "./images/ButtonValidHotel.png";
 
 const url = window.location.host;
+const queryParams = new URLSearchParams(window.location.search);
 const cookies = new Cookies();
 
 var userID = "";
@@ -236,9 +237,16 @@ class App extends React.Component {
       }
       this.resize();
     });
+    var futur = "";
+    if (queryParams.get("f") > 0) {
+      futur = "&f=" + queryParams.get("f");
+    }
+
     xhr.open(
       "GET",
-      "https://www.pcspace.com/logicbird/getDayChallenge.php?uuid=" + userID
+      "https://www.pcspace.com/logicbird/getDayChallenge.php?uuid=" +
+        userID +
+        futur
     );
     xhr.send();
   }
@@ -276,11 +284,16 @@ class App extends React.Component {
       }
       this.resize();
     });
+    var futur = "";
+    if (queryParams.get("f") > 0) {
+      futur = "&f=" + queryParams.get("f");
+    }
     xhr.open(
       "GET",
       "https://www.pcspace.com/logicbird/getDayChallenge.php?uuid=" +
         userID +
-        "&ask=1"
+        "&ask=1" +
+        futur
     );
     xhr.send();
   }
@@ -1094,8 +1107,8 @@ class App extends React.Component {
         id="card"
         alt="card"
         draggable="false"
-        width="300"
-        height="300"
+        width="350"
+        height="auto"
       />
     );
   }
