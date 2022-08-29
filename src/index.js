@@ -353,6 +353,10 @@ class App extends React.Component {
     return parseInt(solution.substr(pos, 1)) === bird;
   };
 
+  isThisMoveCorrectHotel = (bird, pos) => {
+    return parseInt(solution.substr(bird, 1)) === pos;
+  };
+
   drop = (event) => {
     if (whichgame == 0) {
       //   clearTimeout(timeout);
@@ -474,7 +478,16 @@ class App extends React.Component {
         if (
           this.state.position[this.state.targetLine][this.state.targetX] === 6
         ) {
-          // Laché sur une case vide
+          if (
+            this.isThisMoveCorrectHotel(
+              this.state.draggedBird,
+              this.state.targetLine
+            )
+          ) {
+            this.state.historicalMoves.push(0); // Correct move
+          } else {
+            this.state.historicalMoves.push(2); // Incorrect move
+          } // Laché sur une case vide
           // On commence par retirer toute copie de cet oiseau
           for (i = 0; i < 4; i++) {
             for (x = 0; x < 4; x++) {
