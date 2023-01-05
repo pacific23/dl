@@ -1,2 +1,2 @@
-# defilogic
+# logicbirdsdemo
 Created with CodeSandbox
